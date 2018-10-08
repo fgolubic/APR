@@ -9,15 +9,25 @@
 #define MATRIX_H_
 
 #include<vector>
+#include<string>
+#include<fstream>
+#include<sstream>
+#include<iostream>
 
 class Matrix {
-public:
+private:
 	int noOfRows;
 	int noOfColumns;
 	std::vector<std::vector<double>> matrix;
+public:
 	Matrix();
-	Matrix(int noOfRows, int noOfColumns, std::vector<std::vector<double>> matrix);
+	Matrix(std::string filePath);
 	virtual ~Matrix();
+	int getNoOfRows();
+	int getNoOfColumns();
+	void setNoOfRows(int noOfRows);
+	void setNoOfColumns(int noOfColumns);
+	std::vector<std::vector<double>> getMatrix();
 };
 
 #endif /* MATRIX_H_ */
