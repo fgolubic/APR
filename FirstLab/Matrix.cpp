@@ -9,8 +9,11 @@
 
 Matrix::Matrix() {
 
-	noOfRows = 0;
-	noOfColumns = 0;
+	this->noOfRows = 0;
+	this->noOfColumns = 0;
+
+	this->matrix = new std::vector<std::vector<double>>();
+
 
 }
 
@@ -68,47 +71,76 @@ Matrix::Matrix(std::string filePath)
 
 		}
 
-		matrix.push_back(row);
+		matrix->push_back(row);
 
 	}
 
-	noOfRows = matrix.size();
+	noOfRows = matrix->size();
 
 	std::cout<<"No. of rows set to "<< noOfRows << "." << std::endl;
 
 }
 
 Matrix::~Matrix() {
-	// TODO Auto-generated destructor stub
+
+	delete matrix;
 }
 
-int Matrix::getNoOfRows(){
+unsigned int Matrix::getNoOfRows(){
 
 	return this->noOfRows;
 
 }
 
-int Matrix::getNoOfColumns(){
+unsigned int Matrix::getNoOfColumns(){
 
 	return this->noOfColumns;
 
 }
 
-void Matrix::setNoOfColumns(int noOfColumns){
+void Matrix::setNoOfColumns(unsigned int noOfColumns){
 
 	this->noOfColumns = noOfColumns;
 
 }
 
-void Matrix::setNoOfRows(int noOfRows){
+void Matrix::setNoOfRows(unsigned int noOfRows){
 
 	this->noOfRows = noOfRows;
 
 }
 
-std::vector<std::vector<double>> Matrix::getMatrix(){
+std::vector<std::vector<double>>* Matrix::getMatrix(){
 
 	return this->matrix;
 
 }
 
+Matrix Matrix::operator=(const Matrix& secondMatrix){
+
+	delete this->matrix;
+
+	this->matrix = new std::vector<std::vector<double>>();
+
+	for(unsigned int i=0; i < secondMatrix.noOfRows; i++ ){
+
+		this->matrix->push_back((*(secondMatrix.matrix))[i]);
+
+	}
+
+	this->noOfColumns = secondMatrix.noOfColumns;
+	this->noOfRows = secondMatrix.noOfRows;
+
+	return *this;
+}
+
+std::vector<double> Matrix::operator[](int index) const{
+
+	return (*(this->matrix))[index];
+}
+
+std::vector<double>& Matrix::operator[](int index){
+
+	return (*(this->matrix))[index];
+
+}
